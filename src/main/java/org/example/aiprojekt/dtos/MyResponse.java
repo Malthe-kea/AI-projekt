@@ -1,4 +1,4 @@
-package dtos;
+package org.example.aiprojekt.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

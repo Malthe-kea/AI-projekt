@@ -30,14 +30,29 @@ async function getFalseFact(event){
     event.preventDefault()
 
     const inputValue = document.getElementById('the-topic').value;
-    const url = `${SERVER_URL}fact?about=${encodeURIComponent(inputValue)}`;
+    const url = `${SERVER_URL}funfact?about=${encodeURIComponent(inputValue)}`;
+    const result = document.createElement("p")
+
+    try{
+        const response = await fetch(url).then(handleHttpErrors)
+        const data = await response.json();
+        console.log(data)
+        const resultDiv = document.createElement("p");
+        resultDiv.textContent = response.answer;
+        app.appendChild(resultDiv)
+    } catch (e) {
+        result.style.color = "red";
+        result.innerText = e.message;
+    }
 
 
-    const resultDiv = document.createElement("p");
-    resultDiv.textContent = `Her ville jeg hente falsk fakta om: ${inputValue}`;
-    app.appendChild(resultDiv)
+}
 
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data)
+async function handleHttpErrors(res) {
+    if (!res.ok) {
+        const errorResponse = await res.json();
+        const msg = errorResponse.message ? errorResponse.message : "No error details provided"
+        throw new Error(msg)
+    }
+    return res.json()
 }

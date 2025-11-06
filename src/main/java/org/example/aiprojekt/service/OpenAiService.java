@@ -1,10 +1,10 @@
-package service;
+package org.example.aiprojekt.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dtos.ChatCompletionRequest;
-import dtos.ChatCompletionResponse;
-import dtos.MyResponse;
-import models.Message;
+import org.example.aiprojekt.dtos.RequestDTO;
+import org.example.aiprojekt.dtos.ResponseDTO;
+import org.example.aiprojekt.dtos.MyResponse;
+import org.example.aiprojekt.models.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +42,7 @@ public class OpenAiService {
     public double FREQUENCY_PENALTY;
 
     @Value("${app.presence_penalty}")
-    public double PRESENCE_PENALTY;
+    public int PRESENCE_PENALTY;
 
     @Value("${app.top_p}")
     public double TOP_P;
@@ -59,13 +59,13 @@ public class OpenAiService {
 
     public MyResponse makeRequest(String userPromp, String _systemMessage) {
 
-        ChatCompletionRequest requestDto = new ChatCompletionRequest();
+        RequestDTO requestDto = new RequestDTO();
         requestDto.setModel(MODEL);
         requestDto.setTemperature(TEMPERATURE);
-        requestDto.setMax_tokens(MAX_TOKENS);
+        requestDto.setMaxTokens(MAX_TOKENS);
         requestDto.setTop_p(TOP_P);
-        requestDto.setFrequency_penalty(FREQUENCY_PENALTY);
-        requestDto.setPresence_penalty(PRESENCE_PENALTY);
+        requestDto.setFrequency_Penalty(FREQUENCY_PENALTY);
+        requestDto.setPresencePenalty(PRESENCE_PENALTY);
         requestDto.getMessages().add(new Message("system", _systemMessage));
         requestDto.getMessages().add(new Message("user", userPromp));
 
@@ -76,14 +76,14 @@ public class OpenAiService {
         try {
             json = mapper.writeValueAsString(requestDto);
             System.out.println(json);
-            ChatCompletionResponse response = client.post()
+            ResponseDTO response = client.post()
                     .uri(new URI(URL))
                     .header("Autorization", "Bearer" + API_KEY)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .body(BodyInserters.fromValue(json))
                     .retrieve()
-                    .bodyToMono(ChatCompletionResponse.class)
+                    .bodyToMono(ResponseDTO.class)
                     .block();
             String responseMsg = response.getChoices().get(0).getMessage().getContent();
             int tokensUsed = response.getUsage().getTotal_tokens();

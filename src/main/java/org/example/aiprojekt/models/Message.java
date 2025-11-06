@@ -1,4 +1,4 @@
-package models;
+package org.example.aiprojekt.models;
 
 public class Message {
 
