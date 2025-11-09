@@ -38,7 +38,7 @@ public class OpenAiService {
     public String MODEL;
 
     @Value("${app.temperature}")
-    public int TEMPERATURE;
+    public double TEMPERATURE;
 
     @Value("${app.max_tokens}")
     public int MAX_TOKENS;
@@ -71,10 +71,10 @@ public class OpenAiService {
         lstMessage.add(new Message("user", userPromp));
         chatRequest.setMessages(lstMessage);
         chatRequest.setN(3);
-        chatRequest.setTemperature(2);
-        chatRequest.setMaxTokens(30);
+        chatRequest.setTemperature(TEMPERATURE);
+        chatRequest.setMaxTokens(MAX_TOKENS);
         chatRequest.setStream(false);
-        chatRequest.setPresencePenalty(1);
+        chatRequest.setPresencePenalty(PRESENCE_PENALTY);
 
         ResponseDTO response = client.post()
                 .uri(URL)

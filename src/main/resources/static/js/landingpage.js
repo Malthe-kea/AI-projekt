@@ -18,35 +18,38 @@ function createPage() {
     button.textContent = "Hent falsk fakta";
     button.addEventListener("click", getFalseFact);
 
-
-
     container.appendChild(label);
     container.appendChild(topicInput);
     container.appendChild(button);
     app.appendChild(container);
 }
 
-async function getFalseFact(event){
-    event.preventDefault()
+async function getFalseFact(event) {
+    event.preventDefault();
 
     const inputValue = document.getElementById('the-topic').value;
     const url = `${SERVER_URL}funfact?about=${encodeURIComponent(inputValue)}`;
-    const result = document.createElement("p")
 
-    try{
-        const response = await fetch(url).then(handleHttpErrors)
-        const data = await response.json();
-        console.log(data)
+    try {
+        const data = await fetch(url).then(handleHttpErrors);
+        console.log("Data fra backend:", data);
+
+        // Hent første svar fra OpenAI's JSON-struktur
+        const answer = data?.choices?.[0]?.message?.content || "Ingen svar fundet 😅";
+
         const resultDiv = document.createElement("p");
-        resultDiv.textContent = response.answer;
-        app.appendChild(resultDiv)
+        resultDiv.textContent = answer;
+        app.appendChild(resultDiv);
+
     } catch (e) {
-        result.style.color = "red";
-        result.innerText = e.message;
+        const errorMsg = document.createElement("p");
+        errorMsg.style.color = "red";
+        errorMsg.innerText = e.message;
+        app.appendChild(errorMsg);
     }
-
-
 }
+
+
 
 async function handleHttpErrors(res) {
     if (!res.ok) {

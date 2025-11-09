@@ -30,7 +30,7 @@ public class RequestDTO {
     @JsonProperty("n")
     private int n;
     @JsonProperty("temperature")
-    private int temperature;
+    private double temperature;
     @JsonProperty("max_tokens")
     private int maxTokens;
     @JsonProperty("stream")
@@ -71,12 +71,12 @@ public class RequestDTO {
     }
 
     @JsonProperty("temperature")
-    public int getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 
     @JsonProperty("temperature")
-    public void setTemperature(int temperature) {
+    public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
 
