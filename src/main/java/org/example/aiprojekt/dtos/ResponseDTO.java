@@ -134,4 +134,6 @@ public class ResponseDTO {
         this.additionalProperties.put(name, value);
     }
 
+
+
 }

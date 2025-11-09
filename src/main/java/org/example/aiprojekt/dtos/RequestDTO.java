@@ -28,15 +28,15 @@ public class RequestDTO {
     @JsonProperty("messages")
     private List<Message> messages;
     @JsonProperty("n")
-    private Long n;
+    private int n;
     @JsonProperty("temperature")
-    private Long temperature;
+    private int temperature;
     @JsonProperty("max_tokens")
-    private Long maxTokens;
+    private int maxTokens;
     @JsonProperty("stream")
     private Boolean stream;
     @JsonProperty("presence_penalty")
-    private Long presencePenalty;
+    private int presencePenalty;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -61,32 +61,32 @@ public class RequestDTO {
     }
 
     @JsonProperty("n")
-    public Long getN() {
+    public int getN() {
         return n;
     }
 
     @JsonProperty("n")
-    public void setN(Long n) {
+    public void setN(int n) {
         this.n = n;
     }
 
     @JsonProperty("temperature")
-    public Long getTemperature() {
+    public int getTemperature() {
         return temperature;
     }
 
     @JsonProperty("temperature")
-    public void setTemperature(Long temperature) {
+    public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
 
     @JsonProperty("max_tokens")
-    public Long getMaxTokens() {
+    public int getMaxTokens() {
         return maxTokens;
     }
 
     @JsonProperty("max_tokens")
-    public void setMaxTokens(Long maxTokens) {
+    public void setMaxTokens(int maxTokens) {
         this.maxTokens = maxTokens;
     }
 
@@ -101,12 +101,12 @@ public class RequestDTO {
     }
 
     @JsonProperty("presence_penalty")
-    public Long getPresencePenalty() {
+    public int getPresencePenalty() {
         return presencePenalty;
     }
 
     @JsonProperty("presence_penalty")
-    public void setPresencePenalty(Long presencePenalty) {
+    public void setPresencePenalty(int presencePenalty) {
         this.presencePenalty = presencePenalty;
     }
 

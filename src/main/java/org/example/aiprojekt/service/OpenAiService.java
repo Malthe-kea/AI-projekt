@@ -1,11 +1,13 @@
 package org.example.aiprojekt.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.aiprojekt.dtos.Message;
+import org.example.aiprojekt.models.Choice;
+import org.example.aiprojekt.models.Message;
 import org.example.aiprojekt.dtos.RequestDTO;
 import org.example.aiprojekt.dtos.ResponseDTO;
 import org.example.aiprojekt.dtos.MyResponse;
 import org.example.aiprojekt.models.Message;
+import org.example.aiprojekt.models.Usage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,16 +38,16 @@ public class OpenAiService {
     public String MODEL;
 
     @Value("${app.temperature}")
-    public long TEMPERATURE;
+    public int TEMPERATURE;
 
     @Value("${app.max_tokens}")
-    public long MAX_TOKENS;
+    public int MAX_TOKENS;
 
     @Value("${app.frequency_penalty}")
     public double FREQUENCY_PENALTY;
 
     @Value("${app.presence_penalty}")
-    public long PRESENCE_PENALTY;
+    public int PRESENCE_PENALTY;
 
     @Value("${app.top_p}")
     public double TOP_P;
@@ -60,55 +62,37 @@ public class OpenAiService {
         this.client = client;
     }
 
-    public MyResponse makeRequest(String userPromp, String _systemMessage) {
+    public ResponseDTO makeRequest(String userPromp, String _systemMessage) {
 
-        RequestDTO requestDto = new RequestDTO();
-        requestDto.setModel(MODEL);
-        List<Message> lstMessages = new ArrayList<>();
-        requestDto.setTemperature(TEMPERATURE);
-        requestDto.setMaxTokens(MAX_TOKENS);
-        requestDto.setPresencePenalty(PRESENCE_PENALTY);
-        lstMessages.add(new Message("system", _systemMessage));
-        lstMessages.add(new Message("user", userPromp));
-        requestDto.getMessages().add(new Message("system", _systemMessage));
-        requestDto.getMessages().add(new Message("user", userPromp));
+        RequestDTO chatRequest = new RequestDTO();
+        chatRequest.setModel(MODEL);
+        List<Message> lstMessage = new ArrayList<>();
+        lstMessage.add(new Message("system", _systemMessage));
+        lstMessage.add(new Message("user", userPromp));
+        chatRequest.setMessages(lstMessage);
+        chatRequest.setN(3);
+        chatRequest.setTemperature(2);
+        chatRequest.setMaxTokens(30);
+        chatRequest.setStream(false);
+        chatRequest.setPresencePenalty(1);
 
-        ObjectMapper mapper = new ObjectMapper();
-        String json = "";
-        String err = null;
+        ResponseDTO response = client.post()
+                .uri(URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .headers(h -> h.setBearerAuth(API_KEY))
+                .bodyValue(chatRequest)
+                .retrieve()
+                .bodyToMono(ResponseDTO.class)
+                .block();
 
-        try {
-            json = mapper.writeValueAsString(requestDto);
-            System.out.println(json);
-            ResponseDTO response = client.post()
-                    .uri(new URI(URL))
-                    .header("Autorization", "Bearer" + API_KEY)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .body(BodyInserters.fromValue(json))
-                    .retrieve()
-                    .bodyToMono(ResponseDTO.class)
-                    .block();
-            String responseMsg = response.getChoices().get(0).getMessage().getContent();
-            int tokensUsed = response.getUsage().getTotal_tokens();
-            System.out.println("toeksn used: " + tokensUsed);
-            System.out.print(". Cost ($0.0015 / 1K tokens) : $" + String.format("%6f",(tokensUsed * 0.0015 / 1000)));
-            System.out.println(". For 1$, this is the amount of similar requests you can make: " + Math.round(1/(tokensUsed * 0.0015 / 1000)));
-            return new MyResponse(responseMsg);
-        }
-        catch (WebClientResponseException e){
-            logger.error("Error response status code: " + e.getRawStatusCode());
-            logger.error("Error response body: " + e.getResponseBodyAsString());
-            logger.error("WebClientResponseException", e);
-            err = "Internal Server Error, due to a failed request to external service. You could try again" +
-                    "( While you develop, make sure to consult the detailed error message on your backend)";
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, err);
-        }
-        catch (Exception e){
-            logger.error("Exception", e);
-            err = "Internal Server Error - You could try again" +
-                    "( While you develop, make sure to consult the detailed error message on your backend)";
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, err);
-        }
+        List<Choice> lst = response.getChoices();
+        System.out.println(lst);
+        Usage usg = response.getUsage();
+        System.out.println(usg);
+        System.out.println(response);
+
+        return response;
+
     }
 }
+

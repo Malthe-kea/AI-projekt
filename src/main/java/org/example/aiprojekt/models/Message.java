@@ -1,4 +1,4 @@
-package org.example.aiprojekt.dtos;
+package org.example.aiprojekt.models;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,7 +30,13 @@ public class Message {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
+    public Message(String role, String content) {
+        this.content = content;
+        this.role = role;
+    }
 
+    public Message() {
+    }
 
     @JsonProperty("role")
     public String getRole() {
