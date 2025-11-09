@@ -1,31 +1,42 @@
 package org.example.aiprojekt.dtos;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.example.aiprojekt.models.Message;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.example.aiprojekt.models.Message;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "model",
+        "messages",
+        "n",
+        "temperature",
+        "max_tokens",
+        "stream",
+        "presence_penalty"
+})
 public class RequestDTO {
 
-    @JsonProperty("top_p")
-    private double top_p;
-    @JsonProperty("frequency_Penalty")
-    private double frequency_Penalty;
     @JsonProperty("model")
     private String model;
     @JsonProperty("messages")
     private List<Message> messages;
+    @JsonProperty("n")
+    private Long n;
     @JsonProperty("temperature")
-    private Double temperature;
+    private Long temperature;
     @JsonProperty("max_tokens")
-    private Integer maxTokens;
+    private Long maxTokens;
+    @JsonProperty("stream")
+    private Boolean stream;
     @JsonProperty("presence_penalty")
-    private Integer presencePenalty;
+    private Long presencePenalty;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -49,33 +60,53 @@ public class RequestDTO {
         this.messages = messages;
     }
 
+    @JsonProperty("n")
+    public Long getN() {
+        return n;
+    }
+
+    @JsonProperty("n")
+    public void setN(Long n) {
+        this.n = n;
+    }
+
     @JsonProperty("temperature")
-    public Double getTemperature() {
+    public Long getTemperature() {
         return temperature;
     }
 
     @JsonProperty("temperature")
-    public void setTemperature(Double temperature) {
+    public void setTemperature(Long temperature) {
         this.temperature = temperature;
     }
 
     @JsonProperty("max_tokens")
-    public Integer getMaxTokens() {
+    public Long getMaxTokens() {
         return maxTokens;
     }
 
     @JsonProperty("max_tokens")
-    public void setMaxTokens(Integer maxTokens) {
+    public void setMaxTokens(Long maxTokens) {
         this.maxTokens = maxTokens;
     }
 
+    @JsonProperty("stream")
+    public Boolean getStream() {
+        return stream;
+    }
+
+    @JsonProperty("stream")
+    public void setStream(Boolean stream) {
+        this.stream = stream;
+    }
+
     @JsonProperty("presence_penalty")
-    public Integer getPresencePenalty() {
+    public Long getPresencePenalty() {
         return presencePenalty;
     }
 
     @JsonProperty("presence_penalty")
-    public void setPresencePenalty(Integer presencePenalty) {
+    public void setPresencePenalty(Long presencePenalty) {
         this.presencePenalty = presencePenalty;
     }
 
@@ -83,25 +114,10 @@ public class RequestDTO {
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
-    @JsonAnyGetter
-    public double getTop_p() {
-        return top_p;
-    }
-    @JsonAnySetter
-    public void setTop_p(double top_p) {
-        this.top_p = top_p;
-    }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
 
-    public double getFrequency_Penalty() {
-        return frequency_Penalty;
-    }
-
-    public void setFrequency_Penalty(double frequency_Penalty) {
-        this.frequency_Penalty = frequency_Penalty;
-    }
 }

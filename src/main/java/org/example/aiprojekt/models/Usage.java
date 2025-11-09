@@ -1,31 +1,97 @@
 package org.example.aiprojekt.models;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.example.aiprojekt.models.CompletionTokensDetails;
+import org.example.aiprojekt.models.PromptTokensDetails;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "prompt_tokens",
+        "completion_tokens",
+        "total_tokens",
+        "prompt_tokens_details",
+        "completion_tokens_details"
+})
 public class Usage {
-    private int prompt_tokens;
-    private int completion_tokens;
-    private int total_tokens;
 
-    public int getPrompt_tokens() {
-        return prompt_tokens;
+    @JsonProperty("prompt_tokens")
+    private Long promptTokens;
+    @JsonProperty("completion_tokens")
+    private Long completionTokens;
+    @JsonProperty("total_tokens")
+    private Long totalTokens;
+    @JsonProperty("prompt_tokens_details")
+    private PromptTokensDetails promptTokensDetails;
+    @JsonProperty("completion_tokens_details")
+    private CompletionTokensDetails completionTokensDetails;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
+
+    @JsonProperty("prompt_tokens")
+    public Long getPromptTokens() {
+        return promptTokens;
     }
 
-    public void setPrompt_tokens(int prompt_tokens) {
-        this.prompt_tokens = prompt_tokens;
+    @JsonProperty("prompt_tokens")
+    public void setPromptTokens(Long promptTokens) {
+        this.promptTokens = promptTokens;
     }
 
-    public int getCompletion_tokens() {
-        return completion_tokens;
+    @JsonProperty("completion_tokens")
+    public Long getCompletionTokens() {
+        return completionTokens;
     }
 
-    public void setCompletion_tokens(int completion_tokens) {
-        this.completion_tokens = completion_tokens;
+    @JsonProperty("completion_tokens")
+    public void setCompletionTokens(Long completionTokens) {
+        this.completionTokens = completionTokens;
     }
 
-    public int getTotal_tokens() {
-        return total_tokens;
+    @JsonProperty("total_tokens")
+    public Long getTotalTokens() {
+        return totalTokens;
     }
 
-    public void setTotal_tokens(int total_tokens) {
-        this.total_tokens = total_tokens;
+    @JsonProperty("total_tokens")
+    public void setTotalTokens(Long totalTokens) {
+        this.totalTokens = totalTokens;
     }
+
+    @JsonProperty("prompt_tokens_details")
+    public PromptTokensDetails getPromptTokensDetails() {
+        return promptTokensDetails;
+    }
+
+    @JsonProperty("prompt_tokens_details")
+    public void setPromptTokensDetails(PromptTokensDetails promptTokensDetails) {
+        this.promptTokensDetails = promptTokensDetails;
+    }
+
+    @JsonProperty("completion_tokens_details")
+    public CompletionTokensDetails getCompletionTokensDetails() {
+        return completionTokensDetails;
+    }
+
+    @JsonProperty("completion_tokens_details")
+    public void setCompletionTokensDetails(CompletionTokensDetails completionTokensDetails) {
+        this.completionTokensDetails = completionTokensDetails;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }

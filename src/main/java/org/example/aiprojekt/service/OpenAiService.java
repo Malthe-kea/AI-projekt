@@ -1,6 +1,7 @@
 package org.example.aiprojekt.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.aiprojekt.dtos.Message;
 import org.example.aiprojekt.dtos.RequestDTO;
 import org.example.aiprojekt.dtos.ResponseDTO;
 import org.example.aiprojekt.dtos.MyResponse;
@@ -17,6 +18,8 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OpenAiService {
@@ -33,16 +36,16 @@ public class OpenAiService {
     public String MODEL;
 
     @Value("${app.temperature}")
-    public double TEMPERATURE;
+    public long TEMPERATURE;
 
     @Value("${app.max_tokens}")
-    public int MAX_TOKENS;
+    public long MAX_TOKENS;
 
     @Value("${app.frequency_penalty}")
     public double FREQUENCY_PENALTY;
 
     @Value("${app.presence_penalty}")
-    public int PRESENCE_PENALTY;
+    public long PRESENCE_PENALTY;
 
     @Value("${app.top_p}")
     public double TOP_P;
@@ -61,11 +64,12 @@ public class OpenAiService {
 
         RequestDTO requestDto = new RequestDTO();
         requestDto.setModel(MODEL);
+        List<Message> lstMessages = new ArrayList<>();
         requestDto.setTemperature(TEMPERATURE);
         requestDto.setMaxTokens(MAX_TOKENS);
-        requestDto.setTop_p(TOP_P);
-        requestDto.setFrequency_Penalty(FREQUENCY_PENALTY);
         requestDto.setPresencePenalty(PRESENCE_PENALTY);
+        lstMessages.add(new Message("system", _systemMessage));
+        lstMessages.add(new Message("user", userPromp));
         requestDto.getMessages().add(new Message("system", _systemMessage));
         requestDto.getMessages().add(new Message("user", userPromp));
 

@@ -1,12 +1,16 @@
 package org.example.aiprojekt.dtos;
 
-import com.fasterxml.jackson.annotation.*;
-import org.example.aiprojekt.models.Choice;
-import org.example.aiprojekt.models.Usage;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.example.aiprojekt.models.Choice;
+import org.example.aiprojekt.models.Usage;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -15,22 +19,28 @@ import java.util.Map;
         "created",
         "model",
         "choices",
-        "usage"
+        "usage",
+        "service_tier",
+        "system_fingerprint"
 })
-
 public class ResponseDTO {
+
     @JsonProperty("id")
     private String id;
     @JsonProperty("object")
     private String object;
     @JsonProperty("created")
-    private Integer created;
+    private Long created;
     @JsonProperty("model")
     private String model;
     @JsonProperty("choices")
     private List<Choice> choices;
     @JsonProperty("usage")
     private Usage usage;
+    @JsonProperty("service_tier")
+    private String serviceTier;
+    @JsonProperty("system_fingerprint")
+    private Object systemFingerprint;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -55,12 +65,12 @@ public class ResponseDTO {
     }
 
     @JsonProperty("created")
-    public Integer getCreated() {
+    public Long getCreated() {
         return created;
     }
 
     @JsonProperty("created")
-    public void setCreated(Integer created) {
+    public void setCreated(Long created) {
         this.created = created;
     }
 
@@ -92,6 +102,26 @@ public class ResponseDTO {
     @JsonProperty("usage")
     public void setUsage(Usage usage) {
         this.usage = usage;
+    }
+
+    @JsonProperty("service_tier")
+    public String getServiceTier() {
+        return serviceTier;
+    }
+
+    @JsonProperty("service_tier")
+    public void setServiceTier(String serviceTier) {
+        this.serviceTier = serviceTier;
+    }
+
+    @JsonProperty("system_fingerprint")
+    public Object getSystemFingerprint() {
+        return systemFingerprint;
+    }
+
+    @JsonProperty("system_fingerprint")
+    public void setSystemFingerprint(Object systemFingerprint) {
+        this.systemFingerprint = systemFingerprint;
     }
 
     @JsonAnyGetter
