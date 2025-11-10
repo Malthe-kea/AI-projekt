@@ -76,7 +76,6 @@ public class OpenAiService {
 
         List<Choice> lst = response.getChoices();
         Usage usg = response.getUsage();
-        System.out.println(response.getChoices().toString());
 
 
         return response;
