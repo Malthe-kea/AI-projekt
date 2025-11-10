@@ -1,6 +1,6 @@
 /* Grundlæggende body styling */
 body {
-    font-family: 'Comic Neue', cursive, Arial, "Times New Roman";
+    font-family: 'Comic Neue', cursive, Arial, sans-serif;
     background: linear-gradient(135deg, #f8b500, #fceabb);
     margin: 0;
     padding: 0;
@@ -17,29 +17,43 @@ body {
     max-width: 700px;
 }
 
+/* Billede styling */
 .img-car {
+    display: block;
+    margin: 20px auto 0 auto;
     padding: 10px;
-    border-radius: 25px;
+    border-radius: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-/* Input og knap container */
+.img-car:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Hovedkort container */
 .main-div {
     background-color: rgba(255, 255, 255, 0.95);
-    padding: 25px 30px;
+    padding: 30px 25px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     margin-bottom: 30px;
     text-align: center;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.main-div:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
 
 /* Label styling */
 label {
-    font-weight: bold;
+    font-weight: 600;
     display: block;
-    margin-bottom: 10px;
-    font-size: 18px;
+    margin-bottom: 8px;
+    font-size: 16px;
     color: #333;
 }
 
@@ -48,7 +62,7 @@ input[type="text"] {
     width: 100%;
     padding: 12px 15px;
     font-size: 16px;
-    border-radius: 12px;
+    border-radius: 10px;
     border: 2px solid #ff9800;
     margin-bottom: 20px;
     box-sizing: border-box;
@@ -58,50 +72,50 @@ input[type="text"] {
 
 input[type="text"]:focus {
     border-color: #ff5722;
-    box-shadow: 0 0 8px rgba(255, 87, 34, 0.5);
+    box-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
 }
 
 /* Knap styling */
 button {
     padding: 12px 25px;
-    font-size: 18px;
+    font-size: 16px;
     border: none;
     background: linear-gradient(45deg, #ff4081, #f50057);
     color: white;
     border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    font-weight: 600;
 }
 
 button:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #f50057, #ff4081);
 }
 
 /* Resultatkort */
 .result-card {
     background: linear-gradient(135deg, #00c6ff, #0072ff);
-    color: white;
+    color: #fff;
     padding: 20px 25px;
     margin-top: 15px;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-    font-size: 18px;
-    line-height: 1.5;
-    animation: fadeInUp 0.6s ease forwards;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    font-size: 16px;
+    line-height: 1.6;
+    animation: fadeInUp 0.5s ease forwards;
     max-width: 100%;
     word-wrap: break-word;
     position: relative;
 }
 
-/* Lidt sjove pseudo-elementer */
 .result-card::before {
     content: "💡";
     position: absolute;
     top: 10px;
     left: 15px;
-    font-size: 24px;
+    font-size: 22px;
 }
 
 /* Fejlbeskedkort */
@@ -110,10 +124,10 @@ button:hover {
     color: #fff;
     padding: 20px 25px;
     margin-top: 15px;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-    font-size: 18px;
-    line-height: 1.5;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    font-size: 16px;
+    line-height: 1.6;
     animation: shake 0.5s ease;
     position: relative;
 }
@@ -123,10 +137,24 @@ button:hover {
     position: absolute;
     top: 10px;
     left: 15px;
-    font-size: 24px;
+    font-size: 22px;
 }
 
+/* Fact-check result styling */
+.fact-check-result {
+    text-align: left;
+    padding: 15px 20px;
+    border-radius: 15px;
+    background-color: #f0f4f8;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
+}
 
+.fact-check-result h4 {
+    margin-top: 0;
+    font-size: 16px;
+    color: #0072ff;
+}
 
 /* Animationer */
 @keyframes fadeInUp {
@@ -135,10 +163,7 @@ button:hover {
 }
 
 @keyframes shake {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-5px); }
-    40% { transform: translateX(5px); }
-    60% { transform: translateX(-5px); }
-    80% { transform: translateX(5px); }
-    100% { transform: translateX(0); }
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
 }
