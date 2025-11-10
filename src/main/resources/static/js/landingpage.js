@@ -58,7 +58,7 @@ export async function getFalseFact(event) {
         console.log("Data fra backend:", data);
 
         // Hent første svar fra OpenAI's JSON-struktur
-        const answer = data?.choices?.[1]?.message?.content || "Ingen svar fundet 😅";
+        const answer = data?.choices?.[0]?.message?.content || "Ingen svar fundet 😅";
 
         const resultDiv = document.createElement("p");
         resultDiv.offsetLeft
