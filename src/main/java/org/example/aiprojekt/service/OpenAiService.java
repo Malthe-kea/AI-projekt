@@ -2,7 +2,7 @@ package org.example.aiprojekt.service;
 
 import org.example.aiprojekt.models.Choice;
 import org.example.aiprojekt.models.Message;
-import org.example.aiprojekt.dtos.RequestDTO;
+import org.example.aiprojekt.dtos.OpenAIRequestDTO;
 import org.example.aiprojekt.dtos.ResponseDTO;
 
 import org.example.aiprojekt.models.Usage;
@@ -53,7 +53,7 @@ public class OpenAiService {
 
     public ResponseDTO makeRequest(String userPromp, String _systemMessage) {
 
-        RequestDTO chatRequest = new RequestDTO();
+        OpenAIRequestDTO chatRequest = new OpenAIRequestDTO();
         chatRequest.setModel(MODEL);
         List<Message> lstMessage = new ArrayList<>();
         lstMessage.add(new Message("system", _systemMessage));
@@ -75,10 +75,9 @@ public class OpenAiService {
                 .block();
 
         List<Choice> lst = response.getChoices();
-        System.out.println(lst);
         Usage usg = response.getUsage();
-        System.out.println(usg);
-        System.out.println(response);
+        System.out.println(response.getChoices().toString());
+
 
         return response;
 
