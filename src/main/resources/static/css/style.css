@@ -1,0 +1,144 @@
+/* Grundlæggende body styling */
+body {
+    font-family: 'Comic Neue', cursive, Arial, "Times New Roman";
+    background: linear-gradient(135deg, #f8b500, #fceabb);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* Hovedcontainer */
+#app {
+    margin-top: 50px;
+    width: 90%;
+    max-width: 700px;
+}
+
+.img-car {
+    padding: 10px;
+    border-radius: 25px;
+}
+
+/* Input og knap container */
+.main-div {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 25px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+
+/* Label styling */
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Input felt styling */
+input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 2px solid #ff9800;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #ff5722;
+    box-shadow: 0 0 8px rgba(255, 87, 34, 0.5);
+}
+
+/* Knap styling */
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    background: linear-gradient(45deg, #ff4081, #f50057);
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-weight: bold;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Resultatkort */
+.result-card {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+    padding: 20px 25px;
+    margin-top: 15px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    line-height: 1.5;
+    animation: fadeInUp 0.6s ease forwards;
+    max-width: 100%;
+    word-wrap: break-word;
+    position: relative;
+}
+
+/* Lidt sjove pseudo-elementer */
+.result-card::before {
+    content: "💡";
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 24px;
+}
+
+/* Fejlbeskedkort */
+.error-card {
+    background: linear-gradient(135deg, #ff4e50, #f9d423);
+    color: #fff;
+    padding: 20px 25px;
+    margin-top: 15px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    line-height: 1.5;
+    animation: shake 0.5s ease;
+    position: relative;
+}
+
+.error-card::before {
+    content: "⚠️";
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 24px;
+}
+
+
+
+/* Animationer */
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}

@@ -1,32 +1,21 @@
 package org.example.aiprojekt.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.aiprojekt.models.Choice;
 import org.example.aiprojekt.models.Message;
 import org.example.aiprojekt.dtos.RequestDTO;
 import org.example.aiprojekt.dtos.ResponseDTO;
-import org.example.aiprojekt.dtos.MyResponse;
-import org.example.aiprojekt.models.Message;
+
 import org.example.aiprojekt.models.Usage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class OpenAiService {
-
-    public static final Logger logger = LoggerFactory.getLogger(OpenAiService.class);
 
     @Value("${app.api-key}")
     private String API_KEY;

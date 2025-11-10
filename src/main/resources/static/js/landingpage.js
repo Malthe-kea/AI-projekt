@@ -1,9 +1,18 @@
+
 const app = document.getElementById("app")
 const SERVER_URL = 'http://localhost:8080/api/v1/';
+const requestAndResponseDiv = document.createElement("div")
 
 createPage()
+
 function createPage() {
+
+
     const container = document.createElement("div");
+    requestAndResponseDiv.id = "request-and-response-div";
+    requestAndResponseDiv.className = "main-div"
+
+    const footer = document.createElement("footer")
 
     const label = document.createElement("label");
     label.textContent = "Topic: ";
@@ -18,13 +27,27 @@ function createPage() {
     button.textContent = "Hent falsk fakta";
     button.addEventListener("click", getFalseFact);
 
+
+
+    const img = document.createElement("img")
+    img.className = "img-car"
+    img.src = "pictures/fordKa.png"
+    img.height = 300;
+    img.addEventListener("click", () => {
+        window.open("https://shop.ormband.dk/", "_blank");
+    });
+
+    footer.appendChild(img)
+
     container.appendChild(label);
     container.appendChild(topicInput);
     container.appendChild(button);
-    app.appendChild(container);
+    container.appendChild(footer)
+    requestAndResponseDiv.appendChild(container)
+    app.appendChild(requestAndResponseDiv);
 }
 
-async function getFalseFact(event) {
+export async function getFalseFact(event) {
     event.preventDefault();
 
     const inputValue = document.getElementById('the-topic').value;
@@ -35,11 +58,12 @@ async function getFalseFact(event) {
         console.log("Data fra backend:", data);
 
         // Hent første svar fra OpenAI's JSON-struktur
-        const answer = data?.choices?.[0]?.message?.content || "Ingen svar fundet 😅";
+        const answer = data?.choices?.[1]?.message?.content || "Ingen svar fundet 😅";
 
         const resultDiv = document.createElement("p");
+        resultDiv.offsetLeft
         resultDiv.textContent = answer;
-        app.appendChild(resultDiv);
+        requestAndResponseDiv.appendChild(resultDiv);
 
     } catch (e) {
         const errorMsg = document.createElement("p");
@@ -48,8 +72,6 @@ async function getFalseFact(event) {
         app.appendChild(errorMsg);
     }
 }
-
-
 
 async function handleHttpErrors(res) {
     if (!res.ok) {

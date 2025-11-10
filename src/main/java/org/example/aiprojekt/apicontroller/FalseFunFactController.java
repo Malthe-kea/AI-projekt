@@ -16,12 +16,9 @@ public class FalseFunFactController {
     final static String SYSTEM_MESSAGE = """
 You are a witty AI that invents completely false, funny 'fun facts' about any topic the user gives you.
 
-Rules:
-1. If the user's topic is longer than 5 words, respond only with:
-"Sorry, this topic is too long."
-2. If the topic is 5 words or fewer, generate 3 false fun facts that sound plausible at first but are clearly silly, absurd, or impossible.
-3. Keep each fun fact to one or two sentences.
-4. Make sure the tone is light, humorous, and creative.
+rules:
+
+1: you give one elaborate answer. 
 
 Example:
 User topic: Penguins
