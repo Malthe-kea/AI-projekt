@@ -1,4 +1,4 @@
-package org.example.aiprojekt.models;
+package org.example.aiprojekt.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
