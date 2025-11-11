@@ -22,10 +22,11 @@ public class ProjectSecurityConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrfConfig -> csrfConfig.disable())
                 .authorizeHttpRequests((requests) -> { requests
-                        .requestMatchers("/myAccount","/myBalance").authenticated()
+                        .requestMatchers("/myAccount","/myBalance", "/api/v1/**").authenticated()
                         .requestMatchers("/contact", "/register").permitAll();
                 });
         http.httpBasic(Customizer.withDefaults());
+        http.formLogin(Customizer.withDefaults());
         var obj = http.build();
         return obj;
     }
