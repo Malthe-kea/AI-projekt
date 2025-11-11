@@ -1,11 +1,11 @@
 package org.example.aiprojekt.service;
 
-import org.example.aiprojekt.models.Choice;
-import org.example.aiprojekt.models.Message;
+import org.example.aiprojekt.model.Choice;
+import org.example.aiprojekt.model.Message;
 import org.example.aiprojekt.dtos.OpenAIRequestDTO;
 import org.example.aiprojekt.dtos.ResponseDTO;
 
-import org.example.aiprojekt.models.Usage;
+import org.example.aiprojekt.model.Usage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
