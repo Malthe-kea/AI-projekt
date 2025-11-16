@@ -1,9 +1,9 @@
 package org.example.aiprojekt.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.aiprojekt.dtos.MistralRequestDTO;
-import org.example.aiprojekt.dtos.ResponseDTO;
-import org.example.aiprojekt.models.MistralMessage;
+import org.example.aiprojekt.dto.MistralRequestDTO;
+import org.example.aiprojekt.dto.ResponseDTO;
+import org.example.aiprojekt.model.MistralMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;

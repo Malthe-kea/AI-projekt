@@ -1,4 +1,4 @@
-package org.example.aiprojekt.models;
+package org.example.aiprojekt.model;
 
 import java.util.LinkedHashMap;
 import java.util.List;

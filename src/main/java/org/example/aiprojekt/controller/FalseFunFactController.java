@@ -1,8 +1,7 @@
-package org.example.aiprojekt.apicontroller;
+package org.example.aiprojekt.controller;
 
 
-import org.example.aiprojekt.dtos.MyResponse;
-import org.example.aiprojekt.dtos.ResponseDTO;
+import org.example.aiprojekt.dto.ResponseDTO;
 import org.springframework.web.bind.annotation.*;
 import org.example.aiprojekt.service.OpenAiService;
 

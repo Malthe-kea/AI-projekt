@@ -1,7 +1,7 @@
-package org.example.aiprojekt.dtos;
+package org.example.aiprojekt.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.example.aiprojekt.models.MistralMessage;
+import org.example.aiprojekt.model.MistralMessage;
 
 import java.util.List;
 
