@@ -41,11 +41,6 @@ public class MistralAIService {
         this.mapper = new ObjectMapper();
     }
 
-    public MistralAIService(WebClient webClient) {
-        this.client = webClient;
-        this.mapper = new ObjectMapper();
-    }
-
     public ResponseDTO makeRequest(String userPrompt, String systemMessage) {
         try {
             // Byg request DTO

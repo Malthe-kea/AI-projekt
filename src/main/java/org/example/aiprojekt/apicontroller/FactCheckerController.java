@@ -3,6 +3,7 @@ package org.example.aiprojekt.apicontroller;
 import org.example.aiprojekt.dtos.ResponseDTO;
 import org.example.aiprojekt.service.MistralAIService;
 import org.example.aiprojekt.service.OpenAiService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,16 +14,13 @@ import java.util.Map;
 @CrossOrigin("*")
 public class FactCheckerController {
 
-    private OpenAiService openAiService;
+    //private OpenAiService openAiService;
+
 
     private MistralAIService mistralAIService;
-//
-//    public FactCheckerController(MistralAIService mistralAIService) {
-//        this.mistralAIService = mistralAIService;
-//    }
 
-    FactCheckerController(OpenAiService openAiService){
-        this.openAiService = openAiService;
+    public FactCheckerController(MistralAIService mistralAIService) {
+        this.mistralAIService = mistralAIService;
     }
 
     final static String SYSTEM_MESSAGE = """
@@ -34,31 +32,31 @@ public class FactCheckerController {
             At the end, clearly state which statement(s) you believe are false and summarize why.
             
 """;
-//    @PostMapping("/factchecker")
-//    public ResponseEntity<ResponseDTO> checkFact(@RequestBody Map<String, String> request) {
-//        String statement = request.get("statement");
-//        String topic = request.get("topic");
-//
-//
-//        ResponseDTO response = mistralAIService.makeRequest(
-//                "Tjek om dette udsagn er korrekt: \"" + statement + "\"\nEmne: " + topic,
-//                SYSTEM_MESSAGE
-//        );
-//
-//        return ResponseEntity.ok(response);
-//    }
-
     @PostMapping("/factchecker")
     public ResponseEntity<ResponseDTO> checkFact(@RequestBody Map<String, String> request) {
         String statement = request.get("statement");
         String topic = request.get("topic");
 
 
-        ResponseDTO response = openAiService.makeRequest(
+        ResponseDTO response = mistralAIService.makeRequest(
                 "Tjek om dette udsagn er korrekt: \"" + statement + "\"\nEmne: " + topic,
                 SYSTEM_MESSAGE
         );
 
         return ResponseEntity.ok(response);
     }
+
+//    @PostMapping("/factchecker")
+//    public ResponseEntity<ResponseDTO> checkFact(@RequestBody Map<String, String> request) {
+//        String statement = request.get("statement");
+//        String topic = request.get("topic");
+//
+//
+//        ResponseDTO response = openAiService.makeRequest(
+//                "Tjek om dette udsagn er korrekt: \"" + statement + "\"\nEmne: " + topic,
+//                SYSTEM_MESSAGE
+//        );
+//
+//        return ResponseEntity.ok(response);
+//    }
 }
